@@ -15,7 +15,11 @@ import com.nkming.utils.Log;
 import com.nkming.utils.Res;
 import com.nkming.utils.type.Size;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class BitmapUtils
 {
@@ -85,6 +89,48 @@ public class BitmapUtils
 		else
 		{
 			return product;
+		}
+	}
+
+	/**
+	 * Save a bitmap to a specific path
+	 *
+	 * @param bmp
+	 * @param path
+	 * @param format
+	 * @param quality
+	 * @return
+	 */
+	public static boolean saveBitmap(Bitmap bmp, String path,
+			Bitmap.CompressFormat format, int quality)
+	{
+		File file = new File(path);
+		OutputStream os = null;
+		try
+		{
+			os = new FileOutputStream(file);
+			os = new BufferedOutputStream(os);
+			bmp.compress(format, quality, os);
+			return true;
+		}
+		catch (IOException e)
+		{
+			Log.e(LOG_TAG + ".saveBitmap", "IOException", e);
+			return false;
+		}
+		finally
+		{
+			if (os != null)
+			{
+				try
+				{
+					os.close();
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
