@@ -78,7 +78,7 @@ public class BitmapLoader
 	 * original size
 	 *
 	 * @param size
-	 * @see setSizeCalc()
+	 * @see BitmapLoader#setSizeCalc(SizeCalc)
 	 */
 	public void setTargetSize(Size size)
 	{
@@ -89,7 +89,7 @@ public class BitmapLoader
 	 * Specify a resize strategy if a target size is set
 	 *
 	 * @param sc
-	 * @see setTargetSize()
+	 * @see BitmapLoader#setTargetSize(Size)
 	 */
 	public void setSizeCalc(SizeCalc sc)
 	{
