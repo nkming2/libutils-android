@@ -25,6 +25,7 @@ import com.nkming.utils.type.Size;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
 
 /**
  * A universal Bitmap loader that loads Bitmap from local file, media content
@@ -147,22 +148,47 @@ public class BitmapLoader
 			String packageName = uri.getAuthority();
 			Resources res = mContext.getPackageManager()
 					.getResourcesForApplication(packageName);
-			int density = res.getDisplayMetrics().densityDpi;
-			Drawable d = res.getDrawableForDensity(Integer.parseInt(
-					uri.getLastPathSegment()), density);
-
-			int defaultW = (mTargetSize.w() == 0) ? 100 : mTargetSize.w();
-			int defaultH = (mTargetSize.h() == 0) ? 100 : mTargetSize.h();
-			Bitmap product = DrawableUtils.toBitmap(d, defaultW, defaultH);
-
-			Size origSize = new Size(product.getWidth(), product.getHeight());
-			return scaleBitmap(product, mSizeCalc.calc(origSize, mTargetSize));
+			List<String> pathSegs =  uri.getPathSegments();
+			if (pathSegs.size() == 1)
+			{
+				// Resource uri with id
+				return loadResourceById(res, packageName, Integer.parseInt(
+						pathSegs.get(0)));
+			}
+			else
+			{
+				// Resource uri with name
+				int resId = res.getIdentifier(pathSegs.get(1), pathSegs.get(0),
+						packageName);
+				if (resId == 0)
+				{
+					Log.e(LOG_TAG + ".loadResource", "Failed while getIdentifier");
+					return null;
+				}
+				else
+				{
+					return loadResourceById(res, packageName, resId);
+				}
+			}
 		}
 		catch (PackageManager.NameNotFoundException e)
 		{
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	private Bitmap loadResourceById(Resources res, String packageName, int resId)
+	{
+		int density = res.getDisplayMetrics().densityDpi;
+		Drawable d = res.getDrawableForDensity(resId, density);
+
+		int defaultW = (mTargetSize.w() == 0) ? 100 : mTargetSize.w();
+		int defaultH = (mTargetSize.h() == 0) ? 100 : mTargetSize.h();
+		Bitmap product = DrawableUtils.toBitmap(d, defaultW, defaultH);
+
+		Size origSize = new Size(product.getWidth(), product.getHeight());
+		return scaleBitmap(product, mSizeCalc.calc(origSize, mTargetSize));
 	}
 
 	private Bitmap loadHttp(Uri uri)
