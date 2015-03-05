@@ -132,7 +132,7 @@ public class BitmapLoader
 			}
 			else
 			{
-				return scaleBitmap(product, new Size(ops.outWidth, ops.outHeight));
+				return scaleBitmap(product, bestSize);
 			}
 		}
 		else
@@ -183,12 +183,17 @@ public class BitmapLoader
 		int density = res.getDisplayMetrics().densityDpi;
 		Drawable d = res.getDrawableForDensity(resId, density);
 
-		int defaultW = (mTargetSize.w() == 0) ? 100 : mTargetSize.w();
-		int defaultH = (mTargetSize.h() == 0) ? 100 : mTargetSize.h();
-		Bitmap product = DrawableUtils.toBitmap(d, defaultW, defaultH);
-
-		Size origSize = new Size(product.getWidth(), product.getHeight());
-		return scaleBitmap(product, mSizeCalc.calc(origSize, mTargetSize));
+		if (mTargetSize.w() > 0 && mTargetSize.h() > 0)
+		{
+			Bitmap product = DrawableUtils.toBitmap(d, mTargetSize.w(),
+					mTargetSize.h());
+			Size origSize = new Size(product.getWidth(), product.getHeight());
+			return scaleBitmap(product, mSizeCalc.calc(origSize, mTargetSize));
+		}
+		else
+		{
+			return DrawableUtils.toBitmap(d, 100, 100);
+		}
 	}
 
 	private Bitmap loadHttp(Uri uri)
@@ -199,34 +204,41 @@ public class BitmapLoader
 		{
 			URL url = new URL(uri.toString());
 			in = url.openStream();
-			Size origSize = BitmapUtils.getSize(in);
-			in.close();
 
-			if (origSize == null)
+			if (mTargetSize.w() > 0 && mTargetSize.h() > 0)
 			{
-				Log.e(LOG_TAG + ".loadHttp", "Failed while getSize");
-				return null;
-			}
-			Size bestSize = mSizeCalc.calc(new Size(origSize.w(), origSize.h()),
-					mTargetSize);
-			int ratio = Math.min(mTargetSize.w() / bestSize.w(),
-					mTargetSize.h() / bestSize.h());
+				Size origSize = BitmapUtils.getSize(in);
+				in.close();
+				if (origSize == null)
+				{
+					Log.e(LOG_TAG + ".loadHttp", "Failed while getSize");
+					return null;
+				}
+				Size bestSize = mSizeCalc.calc(new Size(origSize.w(), origSize.h()),
+						mTargetSize);
+				int ratio = Math.min(mTargetSize.w() / bestSize.w(),
+						mTargetSize.h() / bestSize.h());
 
-			BitmapFactory.Options ops = new BitmapFactory.Options();
-			if (ratio >= 2)
-			{
-				ops.inSampleSize = ratio;
-			}
-			in = url.openStream();
-			Bitmap product = BitmapFactory.decodeStream(in);
-			if (product == null)
-			{
-				Log.e(LOG_TAG + ".loadHttp", "Failed while decodeFile");
-				return null;
+				BitmapFactory.Options ops = new BitmapFactory.Options();
+				if (ratio >= 2)
+				{
+					ops.inSampleSize = ratio;
+				}
+				in = url.openStream();
+				Bitmap product = BitmapFactory.decodeStream(in);
+				if (product == null)
+				{
+					Log.e(LOG_TAG + ".loadHttp", "Failed while decodeFile");
+					return null;
+				}
+				else
+				{
+					return scaleBitmap(product, bestSize);
+				}
 			}
 			else
 			{
-				return scaleBitmap(product, new Size(ops.outWidth, ops.outHeight));
+				return BitmapFactory.decodeStream(in);
 			}
 		}
 		catch (Exception e)
