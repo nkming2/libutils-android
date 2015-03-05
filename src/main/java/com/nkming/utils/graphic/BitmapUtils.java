@@ -71,52 +71,6 @@ public class BitmapUtils
 	}
 
 	/**
-	 * Load a bitmap file at a specific size
-	 *
-	 * @param path
-	 * @param size The target size
-	 * @param calc The resizing strategy used
-	 * @return The loaded bitmap if successful, null otherwise
-	 */
-	public static Bitmap loadImageAtSize(String path, Size size, SizeCalc calc)
-	{
-		if (!new File(path).exists())
-		{
-			Log.e(LOG_TAG + ".loadImageAtSize", "File not exists");
-			return null;
-		}
-
-		Size origSize = getSize(path);
-		Size bestSize = calc.calc(new Size(origSize.w(), origSize.h()), size);
-		int ratio = Math.min(size.w() / bestSize.w(), size.h() / bestSize.h());
-
-		BitmapFactory.Options ops = new BitmapFactory.Options();
-		if (ratio >= 2)
-		{
-			ops.inSampleSize = ratio;
-		}
-		Bitmap product = BitmapFactory.decodeFile(path, ops);
-		if (product == null)
-		{
-			Log.e(LOG_TAG + ".loadImageAtSize", "Failed while decodeFile");
-			return null;
-		}
-
-		Size loadedSize = new Size(ops.outWidth, ops.outHeight);
-		if (!loadedSize.equals(bestSize))
-		{
-			Bitmap resized = Bitmap.createScaledBitmap(product, bestSize.w(),
-					bestSize.h(), true);
-			product.recycle();
-			return resized;
-		}
-		else
-		{
-			return product;
-		}
-	}
-
-	/**
 	 * Save a bitmap to a specific path
 	 *
 	 * @param bmp
