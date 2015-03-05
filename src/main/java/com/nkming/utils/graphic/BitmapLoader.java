@@ -62,7 +62,7 @@ public class BitmapLoader
 		}
 		else if (scheme.equals("http") || scheme.equals("https"))
 		{
-			return loadResource(uri);
+			return loadHttp(uri);
 		}
 		else
 		{
