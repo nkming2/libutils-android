@@ -19,6 +19,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 public class BitmapUtils
@@ -45,6 +46,29 @@ public class BitmapUtils
             return new Size(options.outWidth, options.outHeight);
         }
     }
+
+	/**
+	 * Return the size of a bitmap without loading the whole file
+	 *
+	 * @param stream
+	 * @return
+	 */
+	public static Size getSize(InputStream stream)
+	{
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+
+		BitmapFactory.decodeStream(stream, null, options);
+		if (options.outWidth == -1 || options.outHeight == -1)
+		{
+			Log.e(LOG_TAG + ".getSize", "Failed while decodeStream");
+			return null;
+		}
+		else
+		{
+			return new Size(options.outWidth, options.outHeight);
+		}
+	}
 
 	/**
 	 * Load a bitmap file at a specific size
