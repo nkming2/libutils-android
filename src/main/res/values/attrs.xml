@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="ImageViewEx">
+		<attr name="async" format="boolean" />
+		<attr name="loadOptimalSize" format="boolean" />
+	</declare-styleable>
+</resources>
