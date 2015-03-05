@@ -74,6 +74,13 @@ public class UriUtils
 		}
 	}
 
+	public static Uri getResourceUri(String packageName, int resId)
+	{
+		String uriStr = String.format("%s://%s/%d",
+				ContentResolver.SCHEME_ANDROID_RESOURCE, packageName, resId);
+		return Uri.parse(uriStr);
+	}
+
 	private static final String LOG_TAG = Res.LOG_TAG + "."
 			+ UriUtils.class.getSimpleName();
 }
