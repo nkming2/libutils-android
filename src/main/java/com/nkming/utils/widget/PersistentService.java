@@ -12,7 +12,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Notification;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
@@ -22,70 +21,6 @@ import com.nkming.utils.Log;
 
 public abstract class PersistentService extends Service
 {
-	/**
-	 * Start the service
-	 *
-	 * @param context
-	 */
-	public static void start(Context context)
-	{
-		Intent intent = new Intent(context, PersistentService.class);
-		context.startService(intent);
-	}
-
-	/**
-	 * Stop the service
-	 *
-	 * @param context
-	 */
-	public static void stop(Context context)
-	{
-		Intent intent = new Intent(context, PersistentService.class);
-		intent.setAction(ACTION_STOP);
-		context.startService(intent);
-	}
-
-	/**
-	 * Show the persistent view managed by this service. The view will be shown
-	 * automatically during the start of this service so you only need to call
-	 * this after hideView()
-	 *
-	 * @param context
-	 * @see PersistentService#hideView(android.content.Context)
-	 */
-	public static void showView(Context context)
-	{
-		Intent intent = new Intent(context, PersistentService.class);
-		intent.setAction(ACTION_SHOW);
-		context.startService(intent);
-	}
-
-	/**
-	 * Temporarily hide the persistent view
-	 *
-	 * @param context
-	 * @see PersistentService#showView(android.content.Context)
-	 */
-	public static void hideView(Context context)
-	{
-		Intent intent = new Intent(context, PersistentService.class);
-		intent.setAction(ACTION_HIDE);
-		context.startService(intent);
-	}
-
-	/**
-	 * To hide the persistent view when running a fullscreen app
-	 *
-	 * @param flag
-	 */
-	public static void setAutohideView(Context context, boolean flag)
-	{
-		Intent intent = new Intent(context, PersistentService.class);
-		intent.setAction(ACTION_AUTOHIDE);
-		intent.putExtra(EXTRA_AUTOHIDE, flag);
-		context.startService(intent);
-	}
-
 	/**
 	 * Return if the service is running or not
 	 *
@@ -147,6 +82,72 @@ public abstract class PersistentService extends Service
 			}
 		}
 		return START_STICKY;
+	}
+
+	/**
+	 * Help constructing an Intent to start the service
+	 *
+	 * @param intent
+	 * @return Same instance as @a intent
+	 */
+	protected static Intent createStart(Intent intent)
+	{
+		return intent;
+	}
+
+	/**
+	 * Help constructing an Intent to stop the service
+	 *
+	 * @param intent
+	 * @return Same instance as @a intent
+	 */
+	protected static Intent createStop(Intent intent)
+	{
+		intent.setAction(ACTION_STOP);
+		return intent;
+	}
+
+	/**
+	 * Help constructing an Intent to show the persistent view managed by this
+	 * service. The view will be shown automatically during the start of this
+	 * service so you only need to call this after hideView()
+	 *
+	 * @param intent
+	 * @return Same instance as @a intent
+	 * @see PersistentService#createHideView(Intent)
+	 */
+	protected static Intent createShowView(Intent intent)
+	{
+		intent.setAction(ACTION_SHOW);
+		return intent;
+	}
+
+	/**
+	 * Help constructing an Intent to temporarily hide the persistent view
+	 *
+	 * @param intent
+	 * @return Same instance as @a intent
+	 * @see PersistentService#createShowView(Intent)
+	 */
+	protected static Intent createHideView(Intent intent)
+	{
+		intent.setAction(ACTION_HIDE);
+		return intent;
+	}
+
+	/**
+	 * Help constructing an Intent to hide the persistent view when running a
+	 * fullscreen app
+	 *
+	 * @param intent
+	 * @param flag
+	 * @return Same instance as @a intent
+	 */
+	protected static Intent createSetAutohideView(Intent intent, boolean flag)
+	{
+		intent.setAction(ACTION_AUTOHIDE);
+		intent.putExtra(EXTRA_AUTOHIDE, flag);
+		return intent;
 	}
 
 	/**
