@@ -333,7 +333,7 @@ public class PersistentView
 		mPrimaryId = event.getActionIndex();
 		mInitialTouchPos = new PointF(event.getRawX(), event.getRawY());
 		mHandler.postDelayed(mLongPressRunnable,
-				ViewConfiguration.get(mContext).getLongPressTimeout());
+				ViewConfiguration.getLongPressTimeout());
 
 		for (int i = 0; i < mSnapAnimators.length; ++i)
 		{
