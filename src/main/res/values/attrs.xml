@@ -4,4 +4,9 @@
 		<attr name="async" format="boolean" />
 		<attr name="loadOptimalSize" format="boolean" />
 	</declare-styleable>
+	
+	<declare-styleable name="SeekBarPreference">
+		<attr name="min" format="integer" />
+		<attr name="max" format="integer" />
+	</declare-styleable>
 </resources>
