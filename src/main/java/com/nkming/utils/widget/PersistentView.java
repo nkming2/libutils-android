@@ -167,6 +167,19 @@ public class PersistentView
 		mWindowManager.updateViewLayout(mContainer, mLayoutParams);
 	}
 
+	public void setAlpha(float alpha)
+	{
+		alpha = Math.max(Math.min(alpha, 1.0f), 0.0f);
+		mAlpha = alpha;
+		if (mPrimaryId == -1)
+		{
+			// Set immediately if view is idle, otherwise wait until reset()
+			mChild.animate().alpha(mAlpha)
+					.setInterpolator(new AccelerateDecelerateInterpolator())
+					.setDuration(Res.ANIMATION_FAST);
+		}
+	}
+
 	private static final String LOG_TAG =
 			PersistentView.class.getCanonicalName();
 

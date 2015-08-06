@@ -79,6 +79,10 @@ public abstract class PersistentService extends Service
 			case ACTION_AUTOHIDE:
 				mView.setAutohide(intent.getBooleanExtra(EXTRA_AUTOHIDE, false));
 				break;
+
+			case ACTION_ALPHA:
+				mView.setAlpha(intent.getFloatExtra(EXTRA_ALPHA, 1.0f));
+				break;
 			}
 		}
 		return START_STICKY;
@@ -151,6 +155,20 @@ public abstract class PersistentService extends Service
 	}
 
 	/**
+	 * Help constructing an Intent to tweak the alpha value
+	 *
+	 * @param intent
+	 * @param alpha
+	 * @return Same instance as @a intent
+	 */
+	protected static Intent createSetAlpha(Intent intent, float alpha)
+	{
+		intent.setAction(ACTION_ALPHA);
+		intent.putExtra(EXTRA_ALPHA, alpha);
+		return intent;
+	}
+
+	/**
 	 * Return the layout resource for the persistent view
 	 *
 	 * @return
@@ -188,7 +206,9 @@ public abstract class PersistentService extends Service
 	private static final String ACTION_SHOW = "show";
 	private static final String ACTION_HIDE = "hide";
 	private static final String ACTION_AUTOHIDE = "autohide";
+	private static final String ACTION_ALPHA = "alpha";
 	private static final String EXTRA_AUTOHIDE = "autohide";
+	private static final String EXTRA_ALPHA = "alpha";
 
 	private void initView()
 	{
