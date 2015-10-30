@@ -13,6 +13,8 @@ A personal Android utility library
   - PersistentView, PersistentService  
   Always-on-top view (chat head)
 
+...and some random stuff
+
 # Dependency
 - Latest Kotlin
 - Android support library
