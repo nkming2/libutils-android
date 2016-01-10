@@ -31,7 +31,7 @@ class ArrayRecyclerAdapter<_ItemT, _ViewHolderT>(
 {
 	companion object
 	{
-		fun createFromResource<_ViewHolderT>(context: Context,
+		fun <_ViewHolderT> createFromResource(context: Context,
 				textArrayResId: Int, textViewResId: Int,
 				factory: (root: View, text: TextView) -> _ViewHolderT)
 				: ArrayRecyclerAdapter<CharSequence, _ViewHolderT>
