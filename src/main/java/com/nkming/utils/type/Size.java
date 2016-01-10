@@ -43,6 +43,10 @@ public final class Size {
 		return getWidth();
 	}
 
+	public int getW() {
+		return getWidth();
+	}
+
 	/**
 	 * Get the height of the size (in pixels).
 	 * @return height
@@ -52,6 +56,10 @@ public final class Size {
 	}
 
 	public int h() {
+		return getHeight();
+	}
+
+	public int getH() {
 		return getHeight();
 	}
 

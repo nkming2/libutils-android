@@ -60,6 +60,10 @@ public final class SizeF {
 		return getWidth();
 	}
 
+	public float getW() {
+		return getWidth();
+	}
+
 	/**
 	 * Get the height of the size (as an arbitrary unit).
 	 * @return height
@@ -69,6 +73,10 @@ public final class SizeF {
 	}
 
 	public float h() {
+		return getHeight();
+	}
+
+	public float getH() {
 		return getHeight();
 	}
 
