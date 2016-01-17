@@ -25,4 +25,10 @@ public class DimensionUtils
 		DisplayMetrics dm = context.getResources().getDisplayMetrics();
 		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, dm);
 	}
+
+	public static float pxToDp(Context context, float px)
+	{
+		DisplayMetrics dm = context.getResources().getDisplayMetrics();
+		return px * (DisplayMetrics.DENSITY_DEFAULT / (float)dm.densityDpi);
+	}
 }
