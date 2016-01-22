@@ -24,6 +24,18 @@ operator fun Point.minus(rhs: Point): Point
 	return Point(this.x - rhs.x, this.y - rhs.y)
 }
 
+val Point.length: Double
+	get()
+	{
+		return Math.sqrt(Math.pow(this.x.toDouble(), 2.0)
+				+ Math.pow(this.y.toDouble(), 2.0))
+	}
+
+fun Point.dist(to: Point): Double
+{
+	return this.length - to.length
+}
+
 // PointF
 operator fun PointF.plus(rhs: PointF): PointF
 {
@@ -43,6 +55,23 @@ operator fun PointF.minus(rhs: PointF): PointF
 operator fun PointF.minus(rhs: Point): PointF
 {
 	return PointF(this.x - rhs.x, this.y - rhs.y)
+}
+
+val PointF.length: Double
+	get()
+	{
+		return Math.sqrt(Math.pow(this.x.toDouble(), 2.0)
+				+ Math.pow(this.y.toDouble(), 2.0))
+	}
+
+fun PointF.dist(to: Point): Double
+{
+	return this.length - to.length
+}
+
+fun PointF.dist(to: PointF): Double
+{
+	return this.length - to.length
 }
 
 // Rect
