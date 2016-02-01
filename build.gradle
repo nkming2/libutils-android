@@ -9,6 +9,7 @@ android {
 		targetSdkVersion 22
 		versionCode 1
 		versionName "1.0"
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 	}
 	buildTypes {
 		release {
@@ -19,6 +20,7 @@ android {
 	}
 	sourceSets {
 		main.java.srcDirs += 'src/main/kotlin'
+		androidTest.java.srcDirs += 'src/androidTest/kotlin'
 	}
 }
 
@@ -29,6 +31,14 @@ dependencies {
 	compile "com.android.support:support-v4:$support_version"
 	compile "com.android.support:recyclerview-v7:$support_version"
 	compile 'com.google.code.gson:gson:2.5'
+
+	androidTestCompile ('com.android.support.test:runner:0.4') {
+		exclude module: 'support-annotations'
+	}
+	androidTestCompile ('com.android.support.test:rules:0.4') {
+		exclude module: 'support-annotations'
+	}
+	androidTestCompile 'junit:junit:4.12'
 }
 
 buildscript {
