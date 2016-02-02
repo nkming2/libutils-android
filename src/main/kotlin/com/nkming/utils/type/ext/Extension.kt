@@ -33,7 +33,7 @@ val Point.length: Double
 
 fun Point.dist(to: Point): Double
 {
-	return this.length - to.length
+	return (this - to).length
 }
 
 // PointF
@@ -66,12 +66,12 @@ val PointF.length: Double
 
 fun PointF.dist(to: Point): Double
 {
-	return this.length - to.length
+	return (this - to).length
 }
 
 fun PointF.dist(to: PointF): Double
 {
-	return this.length - to.length
+	return (this - to).length
 }
 
 // Rect
