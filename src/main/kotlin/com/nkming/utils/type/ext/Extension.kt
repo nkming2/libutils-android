@@ -16,12 +16,28 @@ import android.graphics.RectF
 // Point
 operator fun Point.plus(rhs: Point): Point
 {
-	return Point(this.x + rhs.x, this.y + rhs.y)
+	val product = Point(this)
+	product += rhs
+	return product
+}
+
+operator fun Point.plusAssign(rhs: Point)
+{
+	this.x += rhs.x
+	this.y += rhs.y
 }
 
 operator fun Point.minus(rhs: Point): Point
 {
-	return Point(this.x - rhs.x, this.y - rhs.y)
+	val product = Point(this)
+	product -= rhs
+	return product
+}
+
+operator fun Point.minusAssign(rhs: Point)
+{
+	this.x -= rhs.x
+	this.y -= rhs.y
 }
 
 val Point.length: Double
@@ -39,22 +55,54 @@ fun Point.dist(to: Point): Double
 // PointF
 operator fun PointF.plus(rhs: PointF): PointF
 {
-	return PointF(this.x + rhs.x, this.y + rhs.y)
+	val product = PointF(this.x, this.y)
+	product += rhs
+	return product
 }
 
 operator fun PointF.plus(rhs: Point): PointF
 {
-	return PointF(this.x + rhs.x, this.y + rhs.y)
+	val product = PointF(this.x, this.y)
+	product += rhs
+	return product
+}
+
+operator fun PointF.plusAssign(rhs: PointF)
+{
+	this.x += rhs.x
+	this.y += rhs.y
+}
+
+operator fun PointF.plusAssign(rhs: Point)
+{
+	this.x += rhs.x
+	this.y += rhs.y
 }
 
 operator fun PointF.minus(rhs: PointF): PointF
 {
-	return PointF(this.x - rhs.x, this.y - rhs.y)
+	val product = PointF(this.x, this.y)
+	product -= rhs
+	return product
 }
 
 operator fun PointF.minus(rhs: Point): PointF
 {
-	return PointF(this.x - rhs.x, this.y - rhs.y)
+	val product = PointF(this.x, this.y)
+	product -= rhs
+	return product
+}
+
+operator fun PointF.minusAssign(rhs: PointF)
+{
+	this.x -= rhs.x
+	this.y -= rhs.y
+}
+
+operator fun PointF.minusAssign(rhs: Point)
+{
+	this.x -= rhs.x
+	this.y -= rhs.y
 }
 
 val PointF.length: Double
