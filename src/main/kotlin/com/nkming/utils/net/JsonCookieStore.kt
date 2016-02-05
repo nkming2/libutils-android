@@ -284,7 +284,7 @@ class JsonCookieStore(dir: String) : CookieStore
 		}
 		else
 		{
-			return Base64.encodeToString(uri.toString().toByteArray("UTF-8"),
+			return Base64.encodeToString(uri.toString().toByteArray(),
 					Base64.NO_WRAP or Base64.URL_SAFE)
 		}
 	}
