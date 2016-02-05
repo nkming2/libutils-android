@@ -40,6 +40,19 @@ operator fun Point.minusAssign(rhs: Point)
 	this.y -= rhs.y
 }
 
+operator fun Point.times(rhs: Float): Point
+{
+	val product = Point(this)
+	product *= rhs
+	return product
+}
+
+operator fun Point.timesAssign(rhs: Float)
+{
+	this.x = (this.x * rhs).toInt()
+	this.y = (this.y * rhs).toInt()
+}
+
 val Point.length: Double
 	get()
 	{
@@ -103,6 +116,19 @@ operator fun PointF.minusAssign(rhs: Point)
 {
 	this.x -= rhs.x
 	this.y -= rhs.y
+}
+
+operator fun PointF.times(rhs: Float): PointF
+{
+	val product = PointF(this.x, this.y)
+	product *= rhs
+	return product
+}
+
+operator fun PointF.timesAssign(rhs: Float)
+{
+	this.x *= rhs
+	this.y *= rhs
 }
 
 val PointF.length: Double

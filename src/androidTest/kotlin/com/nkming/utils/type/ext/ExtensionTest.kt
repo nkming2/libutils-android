@@ -23,6 +23,14 @@ class ExtensionTest
 	}
 
 	@Test
+	fun PointTimes()
+	{
+		val sbj = Point(2, -4) * 3f
+		assertEquals(6, sbj.x)
+		assertEquals(-12, sbj.y)
+	}
+
+	@Test
 	fun PointLength()
 	{
 		assertEquals(10.0, Point(6, 8).length, .0001)
