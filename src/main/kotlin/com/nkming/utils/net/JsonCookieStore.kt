@@ -298,7 +298,7 @@ class JsonCookieStore(dir: String) : CookieStore
 		else
 		{
 			val uriStr = Base64.decode(filename,
-					Base64.NO_WRAP or Base64.URL_SAFE).toString("UTF-8")
+					Base64.NO_WRAP or Base64.URL_SAFE).toString(Charsets.UTF_8)
 			return URI.create(uriStr)
 		}
 	}
