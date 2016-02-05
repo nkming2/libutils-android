@@ -62,12 +62,12 @@ class ArrayRecyclerAdapter<_ItemT, _ViewHolderT>(
 
 	constructor(context: Context, resource: Int, objects: Array<_ItemT>,
 			factory: (root: View, text: TextView) -> _ViewHolderT)
-			: this(context, resource, 0, objects.toArrayList(), factory)
+			: this(context, resource, 0, objects.toMutableList(), factory)
 
 	constructor(context: Context, resource: Int, textViewResourceId: Int,
 			objects: Array<_ItemT>,
 			factory: (root: View, text: TextView) -> _ViewHolderT)
-			: this(context, resource, textViewResourceId, objects.toArrayList(),
+			: this(context, resource, textViewResourceId, objects.toMutableList(),
 			factory)
 
 	constructor(context: Context, resource: Int, objects: MutableList<_ItemT>,
