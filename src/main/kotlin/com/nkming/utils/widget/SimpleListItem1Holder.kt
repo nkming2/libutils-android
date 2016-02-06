@@ -16,11 +16,6 @@ class SimpleListItem1Holder(root: View)
 		: RecyclerView.ViewHolder(root), ArrayRecyclerAdapter.ViewHolderAdapter,
 				View.OnClickListener
 {
-	interface OnItemClickListener
-	{
-		fun onItemClick(holder: SimpleListItem1Holder, position: Int)
-	}
-
 	companion object
 	{
 		fun getFactory() : (root: View, text: TextView) -> SimpleListItem1Holder

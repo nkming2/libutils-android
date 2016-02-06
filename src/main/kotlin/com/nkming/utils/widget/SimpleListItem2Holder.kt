@@ -15,11 +15,6 @@ import android.widget.TextView
 class SimpleListItem2Holder(root: View)
 		: RecyclerView.ViewHolder(root), View.OnClickListener
 {
-	interface OnItemClickListener
-	{
-		fun onItemClick(holder: SimpleListItem2Holder, position: Int)
-	}
-
 	companion object
 	{
 		fun getFactory() : (root: View, TextView) -> SimpleListItem2Holder
