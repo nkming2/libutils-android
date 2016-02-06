@@ -12,7 +12,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 
-class SimpleListItem2Holder(root: View)
+class SimpleListItem2Holder(root: View,
+		onClickListener: ((holder: SimpleListItem2Holder, position: Int) -> Unit)?
+				= null)
 		: RecyclerView.ViewHolder(root), View.OnClickListener
 {
 	companion object
@@ -29,23 +31,20 @@ class SimpleListItem2Holder(root: View)
 		}
 	}
 
-	constructor(root: View,
-			l: (holder: SimpleListItem2Holder, position: Int) -> Unit)
-			: this(root)
-	{
-		_listener = l
-		root.setOnClickListener(this)
-	}
-
 	override fun onClick(v: View?)
 	{
-		_listener(this, position)
+		// Normally won't be null, just play safe
+		_listener?.invoke(this, position)
 	}
 
 	val text1: TextView = itemView.findViewById(android.R.id.text1) as TextView
 	val text2: TextView = itemView.findViewById(android.R.id.text2) as TextView
 
-	// This is a hack such that the lambda could be null
-	private lateinit var _listener
-			: (holder: SimpleListItem2Holder, position: Int) -> Unit
+	private val _listener: ((holder: SimpleListItem2Holder, position: Int) ->
+			Unit)? = onClickListener
+
+	init
+	{
+		root.setOnClickListener(if (_listener != null) this else null)
+	}
 }
