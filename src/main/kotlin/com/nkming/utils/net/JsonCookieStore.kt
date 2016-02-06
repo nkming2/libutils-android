@@ -11,7 +11,7 @@ import java.net.URI
 
 class JsonCookieStore(dir: String) : CookieStore
 {
-	public override fun remove(uri: URI?, cookie: HttpCookie): Boolean
+	override fun remove(uri: URI?, cookie: HttpCookie): Boolean
 	{
 		val map = getMap(uri)
 		map.remove(cookie.name) ?: return false
@@ -19,7 +19,7 @@ class JsonCookieStore(dir: String) : CookieStore
 		return true
 	}
 
-	public override fun removeAll(): Boolean
+	override fun removeAll(): Boolean
 	{
 		if (_dir.listFiles().isEmpty())
 		{
@@ -33,14 +33,14 @@ class JsonCookieStore(dir: String) : CookieStore
 		}
 	}
 
-	public override fun add(uri: URI?, cookie: HttpCookie)
+	override fun add(uri: URI?, cookie: HttpCookie)
 	{
 		val map = getMap(uri)
 		map[cookie.name] = JsonCookie(cookie)
 		commit(uri, map)
 	}
 
-	public override fun getURIs(): List<URI?>
+	override fun getURIs(): List<URI?>
 	{
 		val product = arrayListOf<URI?>()
 		for (f in listFiles())
@@ -50,12 +50,12 @@ class JsonCookieStore(dir: String) : CookieStore
 		return product
 	}
 
-	public override fun get(uri: URI?): List<HttpCookie>
+	override fun get(uri: URI?): List<HttpCookie>
 	{
 		return getMutable(uri)
 	}
 
-	public override fun getCookies(): List<HttpCookie>
+	override fun getCookies(): List<HttpCookie>
 	{
 		val product = arrayListOf<HttpCookie>()
 		for (f in listFiles())
@@ -70,93 +70,93 @@ class JsonCookieStore(dir: String) : CookieStore
 	private class JsonCookie(cookie: HttpCookie,
 			bornAt: Long = System.currentTimeMillis() / 1000)
 	{
-		public constructor(name: String, value: String)
+		constructor(name: String, value: String)
 				: this(HttpCookie(name, value))
 
-		public constructor(name: String, value: String, bornAt: Long)
+		constructor(name: String, value: String, bornAt: Long)
 				: this(HttpCookie(name, value), bornAt = bornAt)
 
 		@Transient
-		public var c = cookie
+		var c = cookie
 			private set
 
-		public var comment: String?
+		var comment: String?
 			get() = c.comment
 			set(value)
 			{
 				c.comment = value
 			}
 
-		public var commentURL: String?
+		var commentURL: String?
 			get() = c.commentURL
 			set(value)
 			{
 				c.commentURL = value
 			}
 
-		public var discard: Boolean
+		var discard: Boolean
 			get() = c.discard
 			set(value)
 			{
 				c.discard = value
 			}
 
-		public var domain: String?
+		var domain: String?
 			get() = c.domain
 			set(value)
 			{
 				c.domain = value
 			}
 
-		public var maxAge: Long
+		var maxAge: Long
 			get() = c.maxAge
 			set(value)
 			{
 				c.maxAge = value
 			}
 
-		public val bornAt: Long = bornAt
-		public val dieAt: Long
+		val bornAt: Long = bornAt
+		val dieAt: Long
 			get()
 			{
 				return bornAt + maxAge
 			}
 
-		public val hasExpired: Boolean
+		val hasExpired: Boolean
 			get() = c.hasExpired()
 
-		public val name: String
+		val name: String
 			get() = c.name
 
-		public var path: String?
+		var path: String?
 			get() = c.path
 			set(value)
 			{
 				c.path = value
 			}
 
-		public var portlist: String?
+		var portlist: String?
 			get() = c.portlist
 			set(value)
 			{
 				c.portlist = value
 			}
 
-		public var secure: Boolean
+		var secure: Boolean
 			get() = c.secure
 			set(value)
 			{
 				c.secure = value
 			}
 
-		public var value: String
+		var value: String
 			get() = c.value
 			set(value)
 			{
 				c.value = value
 			}
 
-		public var version: Int
+		var version: Int
 			get() = c.version
 			set(value)
 			{
@@ -166,7 +166,7 @@ class JsonCookieStore(dir: String) : CookieStore
 
 	private class JsonCookieSerializer : JsonSerializer<JsonCookie>
 	{
-		public override fun serialize(src: JsonCookie, typeOfSrc: Type,
+		override fun serialize(src: JsonCookie, typeOfSrc: Type,
 				context: JsonSerializationContext): JsonElement
 		{
 			val obj = JsonObject()
@@ -187,7 +187,7 @@ class JsonCookieStore(dir: String) : CookieStore
 
 	private class JsonCookieDeserializer : JsonDeserializer<JsonCookie>
 	{
-		public override fun deserialize(json: JsonElement, typeOfT: Type,
+		override fun deserialize(json: JsonElement, typeOfT: Type,
 				context: JsonDeserializationContext): JsonCookie
 		{
 			val obj = json.asJsonObject

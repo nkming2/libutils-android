@@ -10,33 +10,33 @@ class Matrix4f(values: FloatArray, isCopy: Boolean)
 {
 	companion object
 	{
-		public fun newIdentity(): Matrix4f
+		fun newIdentity(): Matrix4f
 		{
 			return Matrix4f()
 		}
 	}
 
-	public constructor(values: FloatArray)
+	constructor(values: FloatArray)
 			: this(values, true)
 
-	public constructor()
+	constructor()
 			: this(floatArrayOf(
 					1f, 0f, 0f, 0f,
 					0f, 1f, 0f, 0f,
 					0f, 0f, 1f, 0f,
 					0f, 0f, 0f, 1f), false)
 
-	public operator fun get(y: Int, x: Int): Float
+	operator fun get(y: Int, x: Int): Float
 	{
 		return values[y * 4 + x]
 	}
 
-	public operator fun set(y: Int, x: Int, v: Float)
+	operator fun set(y: Int, x: Int, v: Float)
 	{
 		values[y * 4 + x] = v
 	}
 
-	public operator fun times(rhs: Matrix4f): Matrix4f
+	operator fun times(rhs: Matrix4f): Matrix4f
 	{
 		val product = FloatArray(16)
 		for (y in 0..3)
@@ -51,7 +51,7 @@ class Matrix4f(values: FloatArray, isCopy: Boolean)
 		return Matrix4f(product, false)
 	}
 
-	public operator fun times(rhs: Vector4f): Vector4f
+	operator fun times(rhs: Vector4f): Vector4f
 	{
 		val product = FloatArray(4)
 		for (y in 0..3)
@@ -62,7 +62,7 @@ class Matrix4f(values: FloatArray, isCopy: Boolean)
 		return Vector4f(product, false)
 	}
 
-	public override fun toString(): String
+	override fun toString(): String
 	{
 		return "[[${values.slice(0..3).joinToString()}], " +
 				"[${values.slice(4..7).joinToString()}], " +
