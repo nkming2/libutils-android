@@ -12,15 +12,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 
-class SimpleListItem1Holder(root: View)
+class SimpleListItem1Holder(root: View,
+		onClickListener: ((holder: SimpleListItem1Holder, position: Int) -> Unit)?
+				= null)
 		: RecyclerView.ViewHolder(root), ArrayRecyclerAdapter.ViewHolderAdapter,
 				View.OnClickListener
 {
-	interface OnItemClickListener
-	{
-		fun onItemClick(holder: SimpleListItem1Holder, position: Int)
-	}
-
 	companion object
 	{
 		fun getFactory() : (root: View, text: TextView) -> SimpleListItem1Holder
@@ -35,17 +32,10 @@ class SimpleListItem1Holder(root: View)
 		}
 	}
 
-	constructor(root: View,
-			l: (holder: SimpleListItem1Holder, position: Int) -> Unit)
-			: this(root)
-	{
-		_listener = l
-		root.setOnClickListener(this)
-	}
-
 	override fun onClick(v: View?)
 	{
-		_listener(this, position)
+		// Normally won't be null, just play safe
+		_listener?.invoke(this, position)
 	}
 
 	override fun setText(text: CharSequence)
@@ -56,7 +46,11 @@ class SimpleListItem1Holder(root: View)
 	val text1: TextView
 		get() = itemView as TextView
 
-	// This is a hack such that the lambda could be null
-	private lateinit var _listener
-			: (holder: SimpleListItem1Holder, position: Int) -> Unit
+	private val _listener: ((holder: SimpleListItem1Holder, position: Int) ->
+			Unit)? = onClickListener
+
+	init
+	{
+		root.setOnClickListener(if (_listener != null) this else null)
+	}
 }

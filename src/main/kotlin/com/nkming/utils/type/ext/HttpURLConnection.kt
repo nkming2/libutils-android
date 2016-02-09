@@ -2,7 +2,7 @@ package com.nkming.utils.type.ext
 
 import java.net.HttpURLConnection
 
-public inline fun <T> HttpURLConnection.use(block: (HttpURLConnection) -> T): T
+inline fun <T> HttpURLConnection.use(block: (HttpURLConnection) -> T): T
 {
 	try
 	{

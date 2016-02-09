@@ -8,34 +8,34 @@ package com.nkming.utils.math
  */
 class Vector4f(values: FloatArray, isCopy: Boolean)
 {
-	public constructor(values: FloatArray)
+	constructor(values: FloatArray)
 			: this(values, true)
 
-	public constructor()
+	constructor()
 			: this(floatArrayOf(0f, 0f, 0f, 0f), false)
 
-	public operator fun get(x: Int): Float
+	operator fun get(x: Int): Float
 	{
 		return values[x]
 	}
 
-	public operator fun set(x: Int, v: Float)
+	operator fun set(x: Int, v: Float)
 	{
 		values[x] = v
 	}
 
-	public fun dot(rhs: Vector4f): Float
+	fun dot(rhs: Vector4f): Float
 	{
 		return this[0] * rhs[0] + this[1] * rhs[1] + this[2] * rhs[2] +
 				this[3] * rhs[3]
 	}
 
-	public operator fun times(rhs: Vector4f): Float
+	operator fun times(rhs: Vector4f): Float
 	{
 		return this.dot(rhs)
 	}
 
-	public operator fun times(rhs: Matrix4f): Vector4f
+	operator fun times(rhs: Matrix4f): Vector4f
 	{
 		val product = FloatArray(4)
 		for (x in 0..3)
@@ -46,13 +46,13 @@ class Vector4f(values: FloatArray, isCopy: Boolean)
 		return Vector4f(product, false)
 	}
 
-	public operator fun times(rhs: Float): Vector4f
+	operator fun times(rhs: Float): Vector4f
 	{
 		return Vector4f(floatArrayOf(values[0] * rhs, values[1] * rhs,
 				values[2] * rhs, values[3] * rhs), false)
 	}
 
-	public override fun toString(): String
+	override fun toString(): String
 	{
 		return "[${values.joinToString()}]"
 	}
