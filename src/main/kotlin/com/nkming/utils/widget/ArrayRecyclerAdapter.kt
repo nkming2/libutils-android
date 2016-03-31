@@ -1,11 +1,3 @@
-/*
- * ArrayRecyclerAdapter.kt
- *
- * Author: Ming Tsang
- * Copyright (c) 2015 Ming Tsang
- * Refer to LICENSE for details
- */
-
 package com.nkming.utils.widget
 
 import android.content.Context
