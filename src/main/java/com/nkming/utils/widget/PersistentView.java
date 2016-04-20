@@ -180,6 +180,11 @@ public class PersistentView
 		}
 	}
 
+	public void setEnableHaptic(boolean flag)
+	{
+		mContainer.setHapticFeedbackEnabled(flag);
+	}
+
 	private static final String LOG_TAG =
 			PersistentView.class.getCanonicalName();
 

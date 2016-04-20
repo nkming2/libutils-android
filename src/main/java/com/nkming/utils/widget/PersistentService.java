@@ -83,6 +83,10 @@ public abstract class PersistentService extends Service
 			case ACTION_ALPHA:
 				mView.setAlpha(intent.getFloatExtra(EXTRA_ALPHA, 1.0f));
 				break;
+
+			case ACTION_HAPTIC:
+				mView.setEnableHaptic(intent.getBooleanExtra(EXTRA_HAPTIC, true));
+				break;
 			}
 		}
 		return START_STICKY;
@@ -168,6 +172,13 @@ public abstract class PersistentService extends Service
 		return intent;
 	}
 
+	protected static Intent createSetEnableHaptic(Intent intent, boolean flag)
+	{
+		intent.setAction(ACTION_HAPTIC);
+		intent.putExtra(EXTRA_HAPTIC, flag);
+		return intent;
+	}
+
 	/**
 	 * Return the layout resource for the persistent view
 	 *
@@ -207,8 +218,10 @@ public abstract class PersistentService extends Service
 	private static final String ACTION_HIDE = "hide";
 	private static final String ACTION_AUTOHIDE = "autohide";
 	private static final String ACTION_ALPHA = "alpha";
+	private static final String ACTION_HAPTIC = "haptic";
 	private static final String EXTRA_AUTOHIDE = "autohide";
 	private static final String EXTRA_ALPHA = "alpha";
+	private static final String EXTRA_HAPTIC = "haptic";
 
 	private void initView()
 	{
