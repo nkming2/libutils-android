@@ -78,22 +78,26 @@ public class BitmapLoader
 	 * original size
 	 *
 	 * @param size
+	 * @return
 	 * @see BitmapLoader#setSizeCalc(SizeCalc)
 	 */
-	public void setTargetSize(Size size)
+	public BitmapLoader setTargetSize(Size size)
 	{
 		mTargetSize = (size == null) ? new Size(0, 0) : size;
+		return this;
 	}
 
 	/**
 	 * Specify a resize strategy if a target size is set
 	 *
 	 * @param sc
+	 * @return
 	 * @see BitmapLoader#setTargetSize(Size)
 	 */
-	public void setSizeCalc(SizeCalc sc)
+	public BitmapLoader setSizeCalc(SizeCalc sc)
 	{
 		mSizeCalc = (sc == null) ? new NullSizeCalc() : sc;
+		return this;
 	}
 
 	private Bitmap loadFileOrMedia(Uri uri)
