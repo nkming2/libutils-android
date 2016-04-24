@@ -44,7 +44,7 @@ public abstract class PersistentService extends Service
 		mIsRunning = true;
 		super.onCreate();
 		initView();
-		startForeground(1, getForegroundNotification());
+		startForeground(getForegroundNotificationId(), getForegroundNotification());
 	}
 
 	@Override
@@ -186,6 +186,15 @@ public abstract class PersistentService extends Service
 	 */
 	protected abstract int getLayoutId();
 	protected abstract Notification getForegroundNotification();
+
+	/**
+	 * Return the ID used for the foreground notification. Default to 1000
+	 * @return
+	 */
+	protected int getForegroundNotificationId()
+	{
+		return 1000;
+	}
 
 	/**
 	 * Return the persistent view managed by this service, could be null
