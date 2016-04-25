@@ -118,15 +118,13 @@ public class BitmapLoader
 				Log.e(LOG_TAG + ".loadFile", "Failed while getSize");
 				return null;
 			}
-			Size bestSize = mSizeCalc.calc(new Size(origSize.w(), origSize.h()),
-					mTargetSize);
-			int ratio = Math.min(mTargetSize.w() / bestSize.w(),
-					mTargetSize.h() / bestSize.h());
+			Size bestSize = mSizeCalc.calc(origSize, mTargetSize);
 
 			BitmapFactory.Options ops = new BitmapFactory.Options();
-			if (ratio >= 2)
+			int sampleSize = getSampleSize(origSize, bestSize);
+			if (sampleSize >= 2)
 			{
-				ops.inSampleSize = ratio;
+				ops.inSampleSize = sampleSize;
 			}
 			Bitmap product = BitmapFactory.decodeFile(path, ops);
 			if (product == null)
@@ -220,13 +218,12 @@ public class BitmapLoader
 				}
 				Size bestSize = mSizeCalc.calc(new Size(origSize.w(), origSize.h()),
 						mTargetSize);
-				int ratio = Math.min(mTargetSize.w() / bestSize.w(),
-						mTargetSize.h() / bestSize.h());
 
 				BitmapFactory.Options ops = new BitmapFactory.Options();
-				if (ratio >= 2)
+				int sampleSize = getSampleSize(origSize, bestSize);
+				if (sampleSize >= 2)
 				{
-					ops.inSampleSize = ratio;
+					ops.inSampleSize = sampleSize;
 				}
 				in = url.openStream();
 				Bitmap product = BitmapFactory.decodeStream(in);
@@ -274,6 +271,21 @@ public class BitmapLoader
 		else
 		{
 			return orig;
+		}
+	}
+
+	private int getSampleSize(Size origSize, Size targetSize)
+	{
+		int ratio = Math.min(origSize.w() / targetSize.w(),
+				origSize.h() / targetSize.h());
+		int product = 1;
+		for (int test = 2; true; test *= 2)
+		{
+			if (test > ratio)
+			{
+				return product;
+			}
+			++product;
 		}
 	}
 
