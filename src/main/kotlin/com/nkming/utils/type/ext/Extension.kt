@@ -1,9 +1,6 @@
 /*
  * Extension.kt
  * Extensions for various common classes in Android
- *
- * Copyright (c) 2016 Ming Tsang
- * Refer to LICENSE for details
  */
 
 package com.nkming.utils.type.ext
