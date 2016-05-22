@@ -27,6 +27,12 @@ class DimensionUtils
 			val dm = context.resources.displayMetrics
 			return px / dm.density
 		}
+
+		@JvmStatic
+		fun pxToSp(context: Context, px: Float): Float
+		{
+			val dm = context.resources.displayMetrics
+			return px / dm.scaledDensity
 		}
 	}
 }
