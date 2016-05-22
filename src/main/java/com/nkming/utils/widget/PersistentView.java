@@ -55,7 +55,7 @@ public class PersistentView
 		mWindowManager = (WindowManager)mContext.getSystemService(
 				Context.WINDOW_SERVICE);
 
-		Size screenSz = DeviceInfo.GetScreenPx(mContext);
+		Size screenSz = DeviceInfo.getScreenPx(mContext);
 		// Init with a good enough rect
 		mScreenRect = new Rect(0, 0, screenSz.w(), screenSz.h());
 		initView(config);
@@ -574,7 +574,7 @@ public class PersistentView
 	{
 		if (mFullscreenSize == null)
 		{
-			mFullscreenSize = DeviceInfo.GetFullScreenPx(mContext);
+			mFullscreenSize = DeviceInfo.getFullScreenPx(mContext);
 		}
 		// Check whether the orientation is the same
 		if ((rect.height() > rect.width())
