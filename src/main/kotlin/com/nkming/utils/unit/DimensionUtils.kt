@@ -1,8 +1,7 @@
 package com.nkming.utils.unit;
 
-import android.content.Context;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
+import android.content.Context
+import android.util.TypedValue
 
 class DimensionUtils
 {
@@ -26,7 +25,8 @@ class DimensionUtils
 		fun pxToDp(context: Context, px: Float): Float
 		{
 			val dm = context.resources.displayMetrics
-			return px * (DisplayMetrics.DENSITY_DEFAULT / dm.densityDpi.toFloat())
+			return px / dm.density
+		}
 		}
 	}
 }
