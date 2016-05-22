@@ -45,6 +45,34 @@ class DeviceInfo
 		}
 
 		/**
+		 * Get the device screen size in sp
+		 *
+		 * @param context
+		 * @return
+		 */
+		@JvmStatic
+		fun getScreenSpF(context: Context): SizeF
+		{
+			val dm = context.resources.displayMetrics
+			val w = dm.widthPixels / dm.scaledDensity
+			val h = dm.heightPixels / dm.scaledDensity
+			return SizeF(w, h)
+		}
+
+		/**
+		 * Get the device screen size in sp, truncated to int
+		 *
+		 * @param context
+		 * @return
+		 */
+		@JvmStatic
+		fun getScreenSp(context: Context): Size
+		{
+			val sf = getScreenSpF(context)
+			return Size(sf.w.toInt(), sf.h.toInt())
+		}
+
+		/**
 		 * Get the device screen size in pixel
 		 *
 		 * @param context
