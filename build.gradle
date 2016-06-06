@@ -30,7 +30,7 @@ dependencies {
 	compile "com.android.support:appcompat-v7:$support_version"
 	compile "com.android.support:support-v4:$support_version"
 	compile "com.android.support:recyclerview-v7:$support_version"
-	compile 'com.google.code.gson:gson:2.5'
+	compile 'com.google.code.gson:gson:2.6.2'
 
 	androidTestCompile ('com.android.support.test:runner:0.4') {
 		exclude module: 'support-annotations'
