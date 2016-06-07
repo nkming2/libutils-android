@@ -29,8 +29,8 @@ class FragmentTransitionHelper
 						android.R.transition.fade)
 
 				src.fragmentManager.beginTransaction()
-						.replace(srcActivityContainerId, target)
 						.addSharedElement(shared, sharedName)
+						.replace(srcActivityContainerId, target)
 						.commit()
 			}
 			else
