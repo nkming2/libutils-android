@@ -3,6 +3,7 @@ package com.nkming.utils.app
 import android.content.Context
 import android.os.Build
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.transition.TransitionInflater
 import android.view.View
 import com.nkming.utils.R
@@ -12,6 +13,46 @@ object FragmentTransitionHelper
 	fun startTransitionAnimation(context: Context, src: Fragment,
 			srcActivityContainerId: Int, target: Fragment, shared: View,
 			sharedName: String)
+	{
+		buildAnimationTransaction(context, src, srcActivityContainerId, target,
+				shared, sharedName).commit()
+	}
+
+	/**
+	 * Identical to startTransitionAnimation() except that
+	 * FragmentTransaction#commitAllowingStateLoss() is called instead of
+	 * FragmentTransaction#commit()
+	 */
+	fun startTransitionAnimationAllowingStateLoss(context: Context,
+			src: Fragment, srcActivityContainerId: Int, target: Fragment,
+			shared: View, sharedName: String)
+	{
+		buildAnimationTransaction(context, src, srcActivityContainerId, target,
+				shared, sharedName).commitAllowingStateLoss()
+	}
+
+	fun startTransitionAnimation(context: Context, src: Fragment,
+			srcActivityContainerId: Int, target: Fragment)
+	{
+		buildAnimationTransaction(context, src, srcActivityContainerId, target)
+				.commit()
+	}
+
+	/**
+	 * Identical to startTransitionAnimation() except that
+	 * FragmentTransaction#commitAllowingStateLoss() is called instead of
+	 * FragmentTransaction#commit()
+	 */
+	fun startTransitionAnimationAllowingStateLoss(context: Context,
+			src: Fragment, srcActivityContainerId: Int, target: Fragment)
+	{
+		buildAnimationTransaction(context, src, srcActivityContainerId, target)
+				.commitAllowingStateLoss()
+	}
+
+	private fun buildAnimationTransaction(context: Context, src: Fragment,
+			srcActivityContainerId: Int, target: Fragment, shared: View,
+			sharedName: String): FragmentTransaction
 	{
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 		{
@@ -26,23 +67,21 @@ object FragmentTransitionHelper
 			target.enterTransition = inflater.inflateTransition(
 					android.R.transition.fade)
 
-			src.fragmentManager.beginTransaction()
+			return src.fragmentManager.beginTransaction()
 					.addSharedElement(shared, sharedName)
 					.replace(srcActivityContainerId, target)
-					.commit()
 		}
 		else
 		{
-			src.fragmentManager.beginTransaction()
+			return src.fragmentManager.beginTransaction()
 					.setCustomAnimations(android.R.anim.fade_in,
 							android.R.anim.fade_out)
 					.replace(srcActivityContainerId, target)
-					.commit()
 		}
 	}
 
-	fun startTransitionAnimation(context: Context, src: Fragment,
-			srcActivityContainerId: Int, target: Fragment)
+	private fun buildAnimationTransaction(context: Context, src: Fragment,
+			srcActivityContainerId: Int, target: Fragment): FragmentTransaction
 	{
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 		{
@@ -52,17 +91,15 @@ object FragmentTransitionHelper
 			target.enterTransition = inflater.inflateTransition(
 					android.R.transition.fade)
 
-			src.fragmentManager.beginTransaction()
+			return src.fragmentManager.beginTransaction()
 					.replace(srcActivityContainerId, target)
-					.commit()
 		}
 		else
 		{
-			src.fragmentManager.beginTransaction()
+			return src.fragmentManager.beginTransaction()
 					.setCustomAnimations(android.R.anim.fade_in,
 							android.R.anim.fade_out)
 					.replace(srcActivityContainerId, target)
-					.commit()
 		}
 	}
 }
