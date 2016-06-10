@@ -10,44 +10,42 @@ import com.nkming.utils.R
 
 object FragmentTransitionHelper
 {
+	/**
+	 *  @param isAllowingStateLoss See FragmentTransaction#commitAllowingStateLoss()
+	 */
 	fun startTransitionAnimation(context: Context, src: Fragment,
 			srcActivityContainerId: Int, target: Fragment, shared: View,
-			sharedName: String)
+			sharedName: String, isAllowingStateLoss: Boolean = false)
 	{
-		buildAnimationTransaction(context, src, srcActivityContainerId, target,
-				shared, sharedName).commit()
+		var transition = buildAnimationTransaction(context, src,
+				srcActivityContainerId, target, shared, sharedName)
+		if (!isAllowingStateLoss)
+		{
+			transition.commit()
+		}
+		else
+		{
+			transition.commitAllowingStateLoss()
+		}
 	}
 
 	/**
-	 * Identical to startTransitionAnimation() except that
-	 * FragmentTransaction#commitAllowingStateLoss() is called instead of
-	 * FragmentTransaction#commit()
+	 *  @param isAllowingStateLoss See FragmentTransaction#commitAllowingStateLoss()
 	 */
-	fun startTransitionAnimationAllowingStateLoss(context: Context,
-			src: Fragment, srcActivityContainerId: Int, target: Fragment,
-			shared: View, sharedName: String)
-	{
-		buildAnimationTransaction(context, src, srcActivityContainerId, target,
-				shared, sharedName).commitAllowingStateLoss()
-	}
-
 	fun startTransitionAnimation(context: Context, src: Fragment,
-			srcActivityContainerId: Int, target: Fragment)
+			srcActivityContainerId: Int, target: Fragment,
+			isAllowingStateLoss: Boolean = false)
 	{
-		buildAnimationTransaction(context, src, srcActivityContainerId, target)
-				.commit()
-	}
-
-	/**
-	 * Identical to startTransitionAnimation() except that
-	 * FragmentTransaction#commitAllowingStateLoss() is called instead of
-	 * FragmentTransaction#commit()
-	 */
-	fun startTransitionAnimationAllowingStateLoss(context: Context,
-			src: Fragment, srcActivityContainerId: Int, target: Fragment)
-	{
-		buildAnimationTransaction(context, src, srcActivityContainerId, target)
-				.commitAllowingStateLoss()
+		var transition = buildAnimationTransaction(context, src,
+				srcActivityContainerId, target)
+		if (!isAllowingStateLoss)
+		{
+			transition.commit()
+		}
+		else
+		{
+			transition.commitAllowingStateLoss()
+		}
 	}
 
 	private fun buildAnimationTransaction(context: Context, src: Fragment,
