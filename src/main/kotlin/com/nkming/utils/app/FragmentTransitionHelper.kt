@@ -12,13 +12,20 @@ object FragmentTransitionHelper
 {
 	/**
 	 *  @param isAllowingStateLoss See FragmentTransaction#commitAllowingStateLoss()
+	 *  @param backStack See FragmentTransaction#addToBackStack()
 	 */
 	fun startTransitionAnimation(context: Context, src: Fragment,
 			srcActivityContainerId: Int, target: Fragment, shared: View,
-			sharedName: String, isAllowingStateLoss: Boolean = false)
+			sharedName: String, isAllowingStateLoss: Boolean = false,
+			backStack: String? = null)
 	{
 		var transition = buildAnimationTransaction(context, src,
 				srcActivityContainerId, target, shared, sharedName)
+		if (backStack != null)
+		{
+			transition = transition.addToBackStack(backStack)
+		}
+
 		if (!isAllowingStateLoss)
 		{
 			transition.commit()
@@ -31,13 +38,19 @@ object FragmentTransitionHelper
 
 	/**
 	 *  @param isAllowingStateLoss See FragmentTransaction#commitAllowingStateLoss()
+	 *  @param backStack See FragmentTransaction#addToBackStack()
 	 */
 	fun startTransitionAnimation(context: Context, src: Fragment,
 			srcActivityContainerId: Int, target: Fragment,
-			isAllowingStateLoss: Boolean = false)
+			isAllowingStateLoss: Boolean = false, backStack: String? = null)
 	{
 		var transition = buildAnimationTransaction(context, src,
 				srcActivityContainerId, target)
+		if (backStack != null)
+		{
+			transition = transition.addToBackStack(backStack)
+		}
+
 		if (!isAllowingStateLoss)
 		{
 			transition.commit()
