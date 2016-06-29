@@ -30,6 +30,11 @@ open class FragmentEx : Fragment()
 		fun uninit()
 	}
 
+	open fun onBackPressed(): Boolean
+	{
+		return false
+	}
+
 	override fun onActivityCreated(savedInstanceState: Bundle?)
 	{
 		super.onActivityCreated(savedInstanceState)
