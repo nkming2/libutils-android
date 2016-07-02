@@ -10,6 +10,8 @@ import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.SparseArray
+import android.view.View
+import android.view.ViewGroup
 import java.util.*
 
 // Point
@@ -199,4 +201,65 @@ operator fun <T> SparseArray<T>.get(key: Int): T?
 operator fun <T> SparseArray<T>.set(key: Int, value: T)
 {
 	this.put(key, value)
+}
+
+// ViewGroup
+fun ViewGroup.childrenCopy(): List<View>
+{
+	val product = ArrayList<View>(this.childCount)
+	for (i in 0..this.childCount - 1)
+	{
+		product += this.getChildAt(i)
+	}
+	return product
+}
+
+fun ViewGroup.childIterator(): ListIterator<View>
+{
+	val this_ = this
+	return object: ListIterator<View>
+	{
+		override fun hasNext(): Boolean
+		{
+			return (_before < this_.childCount)
+		}
+
+		override fun hasPrevious(): Boolean
+		{
+			return (_before > 0)
+		}
+
+		override fun next(): View
+		{
+			if (!hasNext())
+			{
+				throw NoSuchElementException()
+			}
+			val product = this_.getChildAt(_before)
+			_before += 1
+			return product
+		}
+
+		override fun previous(): View
+		{
+			if (!hasPrevious())
+			{
+				throw NoSuchElementException()
+			}
+			_before -= 1
+			return this_.getChildAt(_before)
+		}
+
+		override fun nextIndex(): Int
+		{
+			return _before
+		}
+
+		override fun previousIndex(): Int
+		{
+			return _before - 1
+		}
+
+		private var _before = 0
+	}
 }
