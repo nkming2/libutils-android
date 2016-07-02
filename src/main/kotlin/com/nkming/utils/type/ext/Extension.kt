@@ -13,6 +13,7 @@ import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
 import java.util.*
+import java.util.concurrent.BlockingQueue
 
 // Point
 operator fun Point.plus(rhs: Point): Point
@@ -262,4 +263,42 @@ fun ViewGroup.childIterator(): ListIterator<View>
 
 		private var _before = 0
 	}
+}
+
+// BlockingQueue
+/**
+ * A bulk variant of take(), or a blocking variant of drainTo()
+ *
+ * @return
+ * @see BlockingQueue.drainTo()
+ * @see BlockingQueue.take()
+ */
+fun <T> BlockingQueue<T>.takeAll(): ArrayList<T>
+{
+	val first = this.take()
+	val product = arrayListOf<T>()
+	product += first
+	this.drainTo(product)
+	// It's not specified in doc whether drainTo would clear the list, so w'll
+	// have to handle it just in case some implementation do
+	if (product.isEmpty() || product.first() !== first)
+	{
+		product.add(0, first)
+	}
+	return product
+}
+
+/**
+ * A bulk variant of poll(), or simply drainTo() that return you a newly created
+ * list
+ *
+ * @return List of available elements, or an empty list if none available
+ * @see BlockingQueue.drainTo()
+ * @see BlockingQueue.poll()
+ */
+fun <T> BlockingQueue<T>.pollAll(): ArrayList<T>
+{
+	val product = arrayListOf<T>()
+	this.drainTo(product)
+	return product
 }
