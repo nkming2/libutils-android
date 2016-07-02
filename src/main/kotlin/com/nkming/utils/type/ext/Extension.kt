@@ -9,6 +9,8 @@ import android.graphics.Point
 import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
+import android.util.SparseArray
+import java.util.*
 
 // Point
 operator fun Point.plus(rhs: Point): Point
@@ -181,4 +183,20 @@ operator fun RectF.minus(move: Point): RectF
 {
 	return RectF(this.left - move.x, this.top - move.y,
 			this.right - move.x, this.bottom - move.y)
+}
+
+// SparseArray
+operator fun <T> SparseArray<T>.contains(key: Int): Boolean
+{
+	return (this.indexOfKey(key) >= 0)
+}
+
+operator fun <T> SparseArray<T>.get(key: Int): T?
+{
+	return this.get(key)
+}
+
+operator fun <T> SparseArray<T>.set(key: Int, value: T)
+{
+	this.put(key, value)
 }
