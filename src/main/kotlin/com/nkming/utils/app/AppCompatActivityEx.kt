@@ -8,7 +8,7 @@ open class AppCompatActivityEx : AppCompatActivity()
 	{
 		for (f in supportFragmentManager.fragments)
 		{
-			if (f != null && !f.isDetached && f is FragmentEx)
+			if (f != null && f.isAdded && f is FragmentEx)
 			{
 				if (f.onBackPressed())
 				{
