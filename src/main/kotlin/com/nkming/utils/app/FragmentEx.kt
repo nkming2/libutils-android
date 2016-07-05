@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.SparseArray
 import android.view.View
+import java.util.*
 import kotlin.reflect.KProperty
 
 open class FragmentEx : Fragment(), _FragmentViewAwareImpl.Adapter
@@ -18,7 +19,7 @@ open class FragmentEx : Fragment(), _FragmentViewAwareImpl.Adapter
 		}
 	}
 
-	interface ViewAwareLazy<T : Any>
+	interface ViewAwareLazy<T : Any?>
 	{
 		operator fun getValue(thisRef: Any?, property: KProperty<*>): T
 
@@ -90,7 +91,8 @@ open class FragmentEx : Fragment(), _FragmentViewAwareImpl.Adapter
 	 * @param initializer
 	 * @return
 	 */
-	protected fun <T : Any> viewAwareLazy(initializer: () -> T): ViewAwareLazy<T>
+	protected fun <T : Any?> viewAwareLazy(initializer: () -> T)
+			: ViewAwareLazy<T>
 	{
 		return _viewAwareImpl.viewAwareLazy(initializer)
 	}
@@ -162,7 +164,7 @@ open class NativeFragmentEx : android.app.Fragment(),
 	 * @param initializer
 	 * @return
 	 */
-	protected fun <T : Any> viewAwareLazy(initializer: () -> T)
+	protected fun <T : Any?> viewAwareLazy(initializer: () -> T)
 			: FragmentEx.ViewAwareLazy<T>
 	{
 		return _viewAwareImpl.viewAwareLazy(initializer)
@@ -250,7 +252,7 @@ abstract class _FragmentViewAwareImpl
 	 * @param initializer
 	 * @return
 	 */
-	fun <T : Any> viewAwareLazy(initializer: () -> T)
+	fun <T : Any?> viewAwareLazy(initializer: () -> T)
 			: FragmentEx.ViewAwareLazy<T>
 	{
 		val inst = ViewAwareLazyImpl(initializer)
@@ -268,19 +270,21 @@ abstract class _FragmentViewAwareImpl
 		private val _id = id
 	}
 
-	private class ViewAwareLazyImpl<T : Any>(initializer: () -> T)
+	private class ViewAwareLazyImpl<T : Any?>(initializer: () -> T)
 			: FragmentEx.ViewAwareLazy<T>
 	{
 		override operator fun getValue(thisRef: Any?, property: KProperty<*>): T
 		{
 			if (!_hasInitialized)
 			{
-				synchronized(this)
+				synchronized(_value)
 				{
-					_value = getValue_()
+					obtainValue()
 				}
 			}
-			return _value
+			// It's ok to just return because we are not clearing the array
+			// during uninit, which make it safe even in a race condition
+			return _value[0]
 		}
 
 		override fun uninit()
@@ -288,21 +292,24 @@ abstract class _FragmentViewAwareImpl
 			_hasInitialized = false
 		}
 
-		private fun getValue_(): T
+		private fun obtainValue()
 		{
-			if (!_hasInitialized)
+			if (_value.isEmpty())
 			{
-				_value = _initializer()
-				_hasInitialized = true
+				_value += _initializer()
 			}
-			return _value
+			else
+			{
+				_value[0] = _initializer()
+			}
 		}
 
 		private val _initializer = initializer
 		private var _hasInitialized = false
-		private lateinit var _value: T
+		// we use an array because nullable var can't be lateinit
+		private val _value = ArrayList<T>(1)
 	}
 
 	private val _views = SparseArray<View?>()
-	private val _viewAwareLazies = arrayListOf<FragmentEx.ViewAwareLazy<out Any>>()
+	private val _viewAwareLazies = arrayListOf<FragmentEx.ViewAwareLazy<out Any?>>()
 }
