@@ -302,6 +302,7 @@ abstract class _FragmentViewAwareImpl
 			{
 				_value[0] = _initializer()
 			}
+			_hasInitialized = true
 		}
 
 		private val _initializer = initializer
