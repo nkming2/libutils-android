@@ -18,4 +18,16 @@ open class AppCompatActivityEx : AppCompatActivity()
 		}
 		super.onBackPressed()
 	}
+
+	override fun onWindowFocusChanged(hasFocus: Boolean)
+	{
+		super.onWindowFocusChanged(hasFocus)
+		for (f in supportFragmentManager.fragments)
+		{
+			if (f != null && f.isAdded && f is FragmentEx)
+			{
+				f.onWindowFocusChanged(hasFocus)
+			}
+		}
+	}
 }

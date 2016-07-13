@@ -36,6 +36,9 @@ open class FragmentEx : Fragment(), _FragmentViewAwareImpl.Adapter
 		return false
 	}
 
+	open fun onWindowFocusChanged(hasFocus: Boolean)
+	{}
+
 	override fun onActivityCreated(savedInstanceState: Bundle?)
 	{
 		super.onActivityCreated(savedInstanceState)
