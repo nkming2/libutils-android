@@ -6,7 +6,7 @@ open class AppCompatActivityEx : AppCompatActivity()
 {
 	override fun onBackPressed()
 	{
-		for (f in supportFragmentManager.fragments)
+		for (f in supportFragmentManager.fragments ?: listOf())
 		{
 			if (f != null && f.isAdded && f is FragmentEx)
 			{
@@ -22,7 +22,7 @@ open class AppCompatActivityEx : AppCompatActivity()
 	override fun onWindowFocusChanged(hasFocus: Boolean)
 	{
 		super.onWindowFocusChanged(hasFocus)
-		for (f in supportFragmentManager.fragments)
+		for (f in supportFragmentManager.fragments ?: listOf())
 		{
 			if (f != null && f.isAdded && f is FragmentEx)
 			{
