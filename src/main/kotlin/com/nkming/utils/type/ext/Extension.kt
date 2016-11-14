@@ -302,3 +302,19 @@ fun <T> BlockingQueue<T>.pollAll(): ArrayList<T>
 	this.drainTo(product)
 	return product
 }
+
+inline fun <T> Iterable<T>.sumByLong(selector: (T) -> Long): Long {
+	var sum = 0L
+	for (element in this) {
+		sum += selector(element)
+	}
+	return sum
+}
+
+inline fun <T> Array<out T>.sumByLong(selector: (T) -> Long): Long {
+	var sum = 0L
+	for (element in this) {
+		sum += selector(element)
+	}
+	return sum
+}
