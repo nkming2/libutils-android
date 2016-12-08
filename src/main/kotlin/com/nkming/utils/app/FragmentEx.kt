@@ -11,28 +11,12 @@ open class FragmentEx : Fragment()
 {
 	open fun onBackPressed(): Boolean
 	{
-		for (f in childFragmentManager.fragments ?: listOf())
-		{
-			if (f != null && f.isAdded && f is FragmentEx)
-			{
-				if (f.onBackPressed())
-				{
-					return true
-				}
-			}
-		}
-		return false
+		return dispatch{it.onBackPressed()}
 	}
 
 	open fun onWindowFocusChanged(hasFocus: Boolean)
 	{
-		for (f in childFragmentManager.fragments ?: listOf())
-		{
-			if (f != null && f.isAdded && f is FragmentEx)
-			{
-				f.onWindowFocusChanged(hasFocus)
-			}
-		}
+		dispatch1Way{it.onWindowFocusChanged(hasFocus)}
 	}
 
 	override fun onActivityCreated(savedInstanceState: Bundle?)
@@ -88,6 +72,37 @@ open class FragmentEx : Fragment()
 			: FragmentViewAwareImpl.ViewAwareLazy<T>
 	{
 		return _viewAwareImpl.viewAwareLazy(initializer)
+	}
+
+	/**
+	 * Dispatch to suitable child fragments
+	 *
+	 * @l What to do when a suitable fragment child is found. Return true to
+	 * break the loop
+	 * @return True if @a l returned true, false otherwise
+	 */
+	private fun dispatch(l: (FragmentEx) -> Boolean): Boolean
+	{
+		for (f in childFragmentManager.fragments ?: listOf())
+		{
+			if (f != null && f.isAdded && f is FragmentEx)
+			{
+				if (l(f))
+				{
+					return true
+				}
+			}
+		}
+		return false
+	}
+
+	private fun dispatch1Way(l: (FragmentEx) -> Unit)
+	{
+		dispatch(
+		{
+			l(it)
+			false
+		})
 	}
 
 	private val _viewAwareImpl = object: FragmentViewAwareImpl()
