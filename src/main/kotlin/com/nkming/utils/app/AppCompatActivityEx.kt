@@ -1,5 +1,6 @@
 package com.nkming.utils.app
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 
 open class AppCompatActivityEx : AppCompatActivity()
@@ -17,6 +18,12 @@ open class AppCompatActivityEx : AppCompatActivity()
 	{
 		super.onWindowFocusChanged(hasFocus)
 		dispatch1Way{it.onWindowFocusChanged(hasFocus)}
+	}
+
+	override fun onNewIntent(intent: Intent)
+	{
+		super.onNewIntent(intent)
+		dispatch1Way{it.onNewIntent(intent)}
 	}
 
 	/**

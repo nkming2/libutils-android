@@ -1,5 +1,6 @@
 package com.nkming.utils.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.SparseArray
@@ -17,6 +18,11 @@ open class FragmentEx : Fragment()
 	open fun onWindowFocusChanged(hasFocus: Boolean)
 	{
 		dispatch1Way{it.onWindowFocusChanged(hasFocus)}
+	}
+
+	open fun onNewIntent(intent: Intent)
+	{
+		dispatch1Way{it.onNewIntent(intent)}
 	}
 
 	override fun onActivityCreated(savedInstanceState: Bundle?)
