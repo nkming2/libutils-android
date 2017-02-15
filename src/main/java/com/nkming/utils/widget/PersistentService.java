@@ -43,8 +43,6 @@ public abstract class PersistentService extends Service
 		Log.d(LOG_TAG, "onCreate");
 		mIsRunning = true;
 		super.onCreate();
-		initView();
-		startForeground(getForegroundNotificationId(), getForegroundNotification());
 	}
 
 	@Override
@@ -53,13 +51,16 @@ public abstract class PersistentService extends Service
 		Log.d(LOG_TAG, "onDestroy");
 		mIsRunning = false;
 		super.onDestroy();
-		uninitForeground();
-		uninitView();
+		uninit();
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
+		if (!mHasInit)
+		{
+			init();
+		}
 		if (intent != null && intent.getAction() != null)
 		{
 			switch (intent.getAction())
@@ -232,6 +233,26 @@ public abstract class PersistentService extends Service
 	private static final String EXTRA_ALPHA = "alpha";
 	private static final String EXTRA_HAPTIC = "haptic";
 
+	private void init()
+	{
+		if (!mHasInit)
+		{
+			mHasInit = true;
+			initView();
+			startForeground(getForegroundNotificationId(), getForegroundNotification());
+		}
+	}
+
+	private void uninit()
+	{
+		if (mHasInit)
+		{
+			mHasInit = false;
+			uninitForeground();
+			uninitView();
+		}
+	}
+
 	private void initView()
 	{
 		if (mView != null)
@@ -304,6 +325,7 @@ public abstract class PersistentService extends Service
 	}
 
 	private PersistentView mView;
+	private boolean mHasInit = false;
 
 	private static boolean mIsRunning = false;
 }
