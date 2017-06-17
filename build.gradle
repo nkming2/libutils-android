@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-	compileSdkVersion 23
+	compileSdkVersion appCompileSdkVersion
 	buildToolsVersion "26.0.0"
 	defaultConfig {
 		minSdkVersion 15
@@ -42,8 +42,6 @@ dependencies {
 }
 
 buildscript {
-	ext.support_version = '23.4.0'
-	ext.kotlin_version = '1.0.4'
 	repositories {
 		mavenCentral()
 	}
