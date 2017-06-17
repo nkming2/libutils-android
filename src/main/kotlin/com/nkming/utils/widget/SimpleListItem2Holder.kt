@@ -29,8 +29,8 @@ class SimpleListItem2Holder(root: View,
 		_listener?.invoke(this, position)
 	}
 
-	val text1: TextView = itemView.findViewById(android.R.id.text1) as TextView
-	val text2: TextView = itemView.findViewById(android.R.id.text2) as TextView
+	val text1: TextView = itemView.findViewById<TextView>(android.R.id.text1)
+	val text2: TextView = itemView.findViewById<TextView>(android.R.id.text2)
 
 	private val _listener: ((holder: SimpleListItem2Holder, position: Int) ->
 			Unit)? = onClickListener

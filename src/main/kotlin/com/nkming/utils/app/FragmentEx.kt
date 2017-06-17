@@ -245,10 +245,9 @@ abstract class FragmentViewAwareImpl
 		}
 		else
 		{
-			val v = getView()?.findViewById(id)
+			val v = getView()?.findViewById<T?>(id)
 			_views.put(id, v)
-			@Suppress("UNCHECKED_CAST")
-			return v as T?
+			return v
 		}
 	}
 
