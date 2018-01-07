@@ -78,13 +78,13 @@ object FragmentTransitionHelper
 			target.enterTransition = inflater.inflateTransition(
 					android.R.transition.fade)
 
-			return src.fragmentManager.beginTransaction()
+			return src.fragmentManager!!.beginTransaction()
 					.addSharedElement(shared, sharedName)
 					.replace(srcActivityContainerId, target)
 		}
 		else
 		{
-			return src.fragmentManager.beginTransaction()
+			return src.fragmentManager!!.beginTransaction()
 					.setCustomAnimations(android.R.anim.fade_in,
 							android.R.anim.fade_out)
 					.replace(srcActivityContainerId, target)
@@ -102,12 +102,12 @@ object FragmentTransitionHelper
 			target.enterTransition = inflater.inflateTransition(
 					android.R.transition.fade)
 
-			return src.fragmentManager.beginTransaction()
+			return src.fragmentManager!!.beginTransaction()
 					.replace(srcActivityContainerId, target)
 		}
 		else
 		{
-			return src.fragmentManager.beginTransaction()
+			return src.fragmentManager!!.beginTransaction()
 					.setCustomAnimations(android.R.anim.fade_in,
 							android.R.anim.fade_out)
 					.replace(srcActivityContainerId, target)
