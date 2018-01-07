@@ -9,6 +9,7 @@ import android.graphics.Point
 import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
+import android.os.PowerManager
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
@@ -318,3 +319,17 @@ inline fun <T> Array<out T>.sumByLong(selector: (T) -> Long): Long {
 	}
 	return sum
 }
+
+inline fun <T> PowerManager.WakeLock.use(block: () -> T): T
+{
+	this.acquire()
+	try
+	{
+		return block()
+	}
+	finally
+	{
+		this.release()
+	}
+}
+
