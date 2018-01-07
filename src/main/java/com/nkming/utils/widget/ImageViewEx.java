@@ -1,24 +1,14 @@
-/*
- * ImageViewEx.java
- *
- * Author: Ming Tsang
- * Copyright (c) 2015 Ming Tsang
- * Refer to LICENSE for details
- */
-
 package com.nkming.utils.widget;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ImageView;
 
 import com.nkming.utils.Log;
 import com.nkming.utils.R;
@@ -38,7 +28,7 @@ import com.nkming.utils.type.Size;
  * async: load the bitmap in another thread<br>
  * loadOptimalSize: load the bitmap at the size of the view
  */
-public class ImageViewEx extends ImageView
+public class ImageViewEx extends AppCompatImageView
 {
 	public ImageViewEx(Context context)
 	{
@@ -54,14 +44,6 @@ public class ImageViewEx extends ImageView
 	public ImageViewEx(Context context, AttributeSet attrs, int defStyleAttr)
 	{
 		super(context, attrs, defStyleAttr);
-		initAttribute(attrs);
-	}
-
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public ImageViewEx(Context context, AttributeSet attrs, int defStyleAttr,
-			int defStyleRes)
-	{
-		super(context, attrs, defStyleAttr, defStyleRes);
 		initAttribute(attrs);
 	}
 
