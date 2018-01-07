@@ -5,6 +5,7 @@
 
 package com.nkming.utils.type.ext
 
+import android.content.res.TypedArray
 import android.graphics.Point
 import android.graphics.PointF
 import android.graphics.Rect
@@ -330,6 +331,18 @@ inline fun <T> PowerManager.WakeLock.use(block: () -> T): T
 	finally
 	{
 		this.release()
+	}
+}
+
+inline fun <T> TypedArray.use(block: (TypedArray) -> T): T
+{
+	try
+	{
+		return block(this)
+	}
+	finally
+	{
+		this.recycle()
 	}
 }
 
