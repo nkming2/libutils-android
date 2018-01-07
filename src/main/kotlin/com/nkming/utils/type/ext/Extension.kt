@@ -5,6 +5,7 @@
 
 package com.nkming.utils.type.ext
 
+import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Point
 import android.graphics.PointF
@@ -14,6 +15,7 @@ import android.os.PowerManager
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import java.lang.IllegalArgumentException
 import java.util.*
 import java.util.concurrent.BlockingQueue
 
@@ -346,3 +348,22 @@ inline fun <T> TypedArray.use(block: (TypedArray) -> T): T
 	}
 }
 
+fun Context.parseStyledResourceId(attr: Int, defValue: Int? = null): Int
+{
+	val ta = obtainStyledAttributes(intArrayOf(attr))
+	return ta.use{
+		return@use if (defValue == null)
+		{
+			val product = it.getResourceId(0, 0)
+			if (product == 0)
+			{
+				throw IllegalArgumentException("Attribute ID $attr doesn't exist")
+			}
+			product
+		}
+		else
+		{
+			it.getResourceId(0, defValue)
+		}
+	}
+}
