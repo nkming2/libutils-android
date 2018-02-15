@@ -46,29 +46,38 @@ public class BitmapLoader
 	 */
 	public Bitmap loadUri(Uri uri)
 	{
-		String scheme = uri.getScheme();
-		if (scheme == null)
+		try
 		{
-			Log.e(LOG_TAG + ".loadUri", "Missing scheme");
-			return null;
+			String scheme = uri.getScheme();
+			if (scheme == null)
+			{
+				Log.e(LOG_TAG + ".loadUri", "Missing scheme");
+				return null;
+			}
+			else if (scheme.equals(ContentResolver.SCHEME_FILE)
+					|| scheme.equals(ContentResolver.SCHEME_CONTENT))
+			{
+				return loadFileOrMedia(uri);
+			}
+			else if (scheme.equals(ContentResolver.SCHEME_ANDROID_RESOURCE))
+			{
+				return loadResource(uri);
+			}
+			else if (scheme.equals("http") || scheme.equals("https"))
+			{
+				return loadHttp(uri);
+			}
+			else
+			{
+				Log.e(LOG_TAG + ".loadUri", String.format(
+						"Unable to load uri (%s)", uri.toString()));
+				return null;
+			}
 		}
-		else if (scheme.equals(ContentResolver.SCHEME_FILE)
-				|| scheme.equals(ContentResolver.SCHEME_CONTENT))
+		catch (SecurityException e)
 		{
-			return loadFileOrMedia(uri);
-		}
-		else if (scheme.equals(ContentResolver.SCHEME_ANDROID_RESOURCE))
-		{
-			return loadResource(uri);
-		}
-		else if (scheme.equals("http") || scheme.equals("https"))
-		{
-			return loadHttp(uri);
-		}
-		else
-		{
-			Log.e(LOG_TAG + ".loadUri", String.format("Unable to load uri (%s)",
-					uri.toString()));
+			Log.e(LOG_TAG + ".loadUri",
+					"Missing READ_EXTERNAL_STORAGE permission?", e);
 			return null;
 		}
 	}
