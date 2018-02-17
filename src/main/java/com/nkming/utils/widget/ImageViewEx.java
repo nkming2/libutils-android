@@ -166,7 +166,7 @@ public class ImageViewEx extends AppCompatImageView
 		}
 	}
 
-	private static final String LOG_TAG = Res.LOG_TAG + ""
+	private static final String LOG_TAG = Res.LOG_TAG + "."
 			+ ImageViewEx.class.getSimpleName();
 
 	private void initAttribute(AttributeSet attrs)
