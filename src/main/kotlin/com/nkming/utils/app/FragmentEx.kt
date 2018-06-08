@@ -31,6 +31,18 @@ open class FragmentEx : Fragment()
 		_viewAwareImpl.onActivityCreated(savedInstanceState)
 	}
 
+	override fun onDestroyView()
+	{
+		super.onDestroyView()
+		isViewDestroyed = true
+	}
+
+	override fun onDestroy()
+	{
+		super.onDestroy()
+		isDestroyed = true
+	}
+
 	/**
 	 * Lazily find a view, and cache the result for later use. The different
 	 * between this method and doing it through lazy delegate, is that we would
@@ -56,6 +68,12 @@ open class FragmentEx : Fragment()
 	{
 		return _viewAwareImpl.findView(id)
 	}
+
+	var isViewDestroyed: Boolean = false
+		private set
+
+	var isDestroyed: Boolean = false
+		private set
 
 	/**
 	 * Delegates that would refind the view if the view is recreated
