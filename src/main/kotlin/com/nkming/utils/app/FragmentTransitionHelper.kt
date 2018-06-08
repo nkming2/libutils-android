@@ -69,12 +69,12 @@ object FragmentTransitionHelper
 		{
 			val inflater = TransitionInflater.from(context)
 			src.sharedElementReturnTransition = inflater.inflateTransition(
-					R.transition.change_image_transition)
+					android.R.transition.move)
 			src.exitTransition = inflater.inflateTransition(
 					android.R.transition.fade)
 
 			target.sharedElementEnterTransition = inflater.inflateTransition(
-					R.transition.change_image_transition)
+					android.R.transition.move)
 			target.enterTransition = inflater.inflateTransition(
 					android.R.transition.fade)
 
@@ -177,12 +177,12 @@ object NativeFragmentTransitionHelper
 		{
 			val inflater = TransitionInflater.from(context)
 			src.sharedElementReturnTransition = inflater.inflateTransition(
-					R.transition.change_image_transition)
+					android.R.transition.move)
 			src.exitTransition = inflater.inflateTransition(
 					android.R.transition.fade)
 
 			target.sharedElementEnterTransition = inflater.inflateTransition(
-					R.transition.change_image_transition)
+					android.R.transition.move)
 			target.enterTransition = inflater.inflateTransition(
 					android.R.transition.fade)
 
