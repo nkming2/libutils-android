@@ -45,6 +45,10 @@ open class FragmentEx : Fragment()
 			savedInstanceState: Bundle?): View?
 	{
 		isViewDestroyed = false
+		if (_backstackTick == 0)
+		{
+			++_backstackTick
+		}
 		return null
 	}
 
@@ -58,6 +62,10 @@ open class FragmentEx : Fragment()
 	{
 		super.onDestroyView()
 		isViewDestroyed = true
+		if (_backstackTick == 1)
+		{
+			++_backstackTick
+		}
 	}
 
 	override fun onDestroy()
@@ -97,6 +105,17 @@ open class FragmentEx : Fragment()
 
 	var isDestroyed: Boolean = false
 		private set
+
+	/**
+	 * Return whether frag's currently getting restored from backstack
+	 *
+	 * @return
+	 */
+	val isRestoreFromBackstack: Boolean
+		get()
+		{
+			return _backstackTick == 2
+		}
 
 	/**
 	 * Delegates that would refind the view if the view is recreated
@@ -159,6 +178,9 @@ open class FragmentEx : Fragment()
 			return view
 		}
 	}
+
+	// 2 == returning from backstack
+	private var _backstackTick = 0
 }
 
 open class NativeFragmentEx : android.app.Fragment()
