@@ -66,7 +66,7 @@ class ArrayRecyclerAdapter<_ItemT, _ViewHolderT>(
 			factory: (root: View, text: TextView) -> _ViewHolderT)
 			: this(context, resource, 0, objects, factory)
 
-	override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int)
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
 			: _ViewHolderT
 	{
 		try
