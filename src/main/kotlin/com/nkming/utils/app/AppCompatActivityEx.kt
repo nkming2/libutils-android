@@ -1,7 +1,7 @@
 package com.nkming.utils.app
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
 open class AppCompatActivityEx : AppCompatActivity()
 {

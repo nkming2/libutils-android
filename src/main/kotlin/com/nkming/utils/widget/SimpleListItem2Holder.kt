@@ -1,8 +1,8 @@
 package com.nkming.utils.widget
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
 class SimpleListItem2Holder(root: View,
 		onClickListener: ((holder: SimpleListItem2Holder, position: Int) -> Unit)?

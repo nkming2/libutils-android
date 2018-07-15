@@ -3,7 +3,7 @@ package com.nkming.utils.graphic;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.support.v4.util.LruCache;
+import androidx.collection.LruCache;
 
 public class BitmapCache
 {

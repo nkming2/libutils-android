@@ -1,7 +1,7 @@
 package com.nkming.utils.content;
 
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
+import androidx.loader.content.AsyncTaskLoader;
 
 public abstract class AsyncTaskLoaderEx<E> extends AsyncTaskLoader<E>
 {

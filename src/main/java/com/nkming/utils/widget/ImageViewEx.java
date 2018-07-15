@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -21,6 +20,8 @@ import com.nkming.utils.graphic.SizeCalc;
 import com.nkming.utils.graphic.StretchSizeCalc;
 import com.nkming.utils.io.UriUtils;
 import com.nkming.utils.type.Size;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * A custom ImageView with various extra features
