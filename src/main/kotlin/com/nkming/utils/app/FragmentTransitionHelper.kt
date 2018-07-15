@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.transition.TransitionInflater
 import android.view.View
-import com.nkming.utils.R
 
 object FragmentTransitionHelper
 {
