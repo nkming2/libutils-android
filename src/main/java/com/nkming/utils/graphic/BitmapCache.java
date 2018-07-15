@@ -1,11 +1,3 @@
-/*
- * BitmapCache.java
- *
- * Author: Ming Tsang
- * Copyright (c) 2015 Ming Tsang
- * Refer to LICENSE for details
- */
-
 package com.nkming.utils.graphic;
 
 import android.annotation.TargetApi;

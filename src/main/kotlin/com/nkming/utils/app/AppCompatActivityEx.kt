@@ -35,7 +35,7 @@ open class AppCompatActivityEx : AppCompatActivity()
 	 */
 	private fun dispatch(l: (FragmentEx) -> Boolean): Boolean
 	{
-		for (f in supportFragmentManager.fragments ?: listOf())
+		for (f in supportFragmentManager.fragments)
 		{
 			if (f != null && f.isAdded && f is FragmentEx)
 			{
@@ -50,10 +50,9 @@ open class AppCompatActivityEx : AppCompatActivity()
 
 	private fun dispatch1Way(l: (FragmentEx) -> Unit)
 	{
-		dispatch(
-		{
+		dispatch{
 			l(it)
 			false
-		})
+		}
 	}
 }

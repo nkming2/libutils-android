@@ -1,11 +1,3 @@
-/*
- * AsyncTaskLoaderEx.java
- *
- * Author: Ming Tsang
- * Copyright (c) 2015 Ming Tsang
- * Refer to LICENSE for details
- */
-
 package com.nkming.utils.content;
 
 import android.content.Context;
@@ -32,7 +24,7 @@ public abstract class AsyncTaskLoaderEx<E> extends AsyncTaskLoader<E>
 		{
 			forceLoad();
 		}
-		else if (mData != null)
+		else
 		{
 			deliverResult(mData);
 		}
