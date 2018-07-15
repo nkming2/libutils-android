@@ -27,7 +27,7 @@ class FooterDecoration(view: View, orientation: Int)
 		for (child in parent.childIterator())
 		{
 			if (parent.getChildAdapterPosition(child)
-					== parent.adapter.itemCount - 1)
+					== parent.adapter!!.itemCount - 1)
 			{
 				_view.layout(parent.left, parent.bottom - _view.measuredHeight,
 						parent.right, parent.bottom)
@@ -44,7 +44,8 @@ class FooterDecoration(view: View, orientation: Int)
 	override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,
 			state: RecyclerView.State)
 	{
-		if (parent.getChildAdapterPosition(view) != parent.adapter.itemCount - 1)
+		if (parent.getChildAdapterPosition(view)
+				!= parent.adapter!!.itemCount - 1)
 		{
 			outRect.setEmpty()
 			return
