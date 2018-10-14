@@ -26,13 +26,13 @@ android {
 dependencies {
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-	implementation "androidx.appcompat:appcompat:1.0.0-beta01"
-	implementation "androidx.collection:collection:1.0.0-beta01"
-	implementation "androidx.fragment:fragment:1.0.0-beta01"
-	implementation "androidx.loader:loader:1.0.0-beta01"
-	implementation "androidx.recyclerview:recyclerview:1.0.0-beta01"
-	implementation "androidx.viewpager:viewpager:1.0.0-beta01"
-	implementation 'com.google.code.gson:gson:2.8.2'
+	implementation "androidx.appcompat:appcompat:1.0.0"
+	implementation "androidx.collection:collection:1.0.0"
+	implementation "androidx.fragment:fragment:1.0.0"
+	implementation "androidx.loader:loader:1.0.0"
+	implementation "androidx.recyclerview:recyclerview:1.0.0"
+	implementation "androidx.viewpager:viewpager:1.0.0"
+	implementation 'com.google.code.gson:gson:2.8.5'
 
 	androidTestImplementation ('com.android.support.test:runner:0.4') {
 		exclude module: 'support-annotations'
