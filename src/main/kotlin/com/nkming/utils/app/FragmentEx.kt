@@ -149,7 +149,7 @@ open class FragmentEx : Fragment()
 	 */
 	private fun dispatch(l: (FragmentEx) -> Boolean): Boolean
 	{
-		for (f in childFragmentManager.fragments ?: listOf())
+		for (f in childFragmentManager.fragments)
 		{
 			if (f != null && f.isAdded && f is FragmentEx)
 			{
