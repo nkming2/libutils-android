@@ -8,6 +8,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -262,10 +263,19 @@ public class PersistentView
 		mChild.setAlpha(config.alpha);
 		mContainer.addView(mChild);
 
+		final int type;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+		{
+			type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+		}
+		else
+		{
+			type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+		}
 		mLayoutParams = new WindowManager.LayoutParams(
 				WindowManager.LayoutParams.WRAP_CONTENT,
 				WindowManager.LayoutParams.WRAP_CONTENT,
-				WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+				type,
 				WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 						| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
 						| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -286,10 +296,19 @@ public class PersistentView
 		{
 			mDummyView[i] = new View(mContext);
 
+			final int type;
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+			{
+				type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+			}
+			else
+			{
+				type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+			}
 			WindowManager.LayoutParams params = new WindowManager.LayoutParams(
 					(i == 0) ? WindowManager.LayoutParams.MATCH_PARENT : 0,
 					(i == 0) ? 0 : WindowManager.LayoutParams.MATCH_PARENT,
-					WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
+					type,
 					WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 							| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 					PixelFormat.TRANSLUCENT);
